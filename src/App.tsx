@@ -1,10 +1,9 @@
-import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
-import { Home } from "./countdown";
+import { RouterProvider } from "react-router-dom";
+import router from "router";
 
 function App() {
-  return <Home></Home>;
+  return  <RouterProvider router={router} />;
 }
 
 export default App;

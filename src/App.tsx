@@ -1,17 +1,21 @@
-import { ReloadOutlined, StepForwardOutlined } from "@ant-design/icons";
 import { useState } from "react";
 import { Countdown } from "./countdown/clock/countdown";
 import "./App.scss";
-import { PlayController } from "./countdown/actions/playController"; // @ is an alias to /src
-import { Setting } from "./countdown/actions/setting";
 import { ClockContext } from "./countdown/context";
 import { ETickState } from "./countdown/enum";
+import Icon from "@ant-design/icons/lib/components/Icon";
+import { ReactComponent as NextSvg } from "static/icon/media_next.svg";
+import { ReactComponent as RestartSvg } from "static/icon/restart.svg";
+import { MutedController } from "countdown/actions/Muted";
+import { PlayController } from "countdown/actions/PlayController"; // @ is an alias to /src
+import { Setting } from "countdown/actions/Setting";
 
 function App() {
   const [tickState, setTickState] = useState(ETickState["暂停"]);
-  const [countdowns, setCountdowns] = useState([1, 300]);
+  const [countdowns, setCountdowns] = useState([1500, 300]);
   const [clockRefresh, setClockRefresh] = useState(false);
   const [step, setStep] = useState(0);
+  const [muted, setMuted] = useState(false);
 
   const handleRefresh = () => {
     setClockRefresh(true);
@@ -32,6 +36,8 @@ function App() {
           setCountdowns,
           step,
           setStep,
+          muted,
+          setMuted,
         }}
       >
         <div className="clock">
@@ -42,19 +48,26 @@ function App() {
         </div>
         <div className="actions">
           <PlayController className="action action-play"></PlayController>
-          <StepForwardOutlined
+          <Icon
+            component={NextSvg}
             onClick={() => {
               setStep(step < countdowns.length - 1 ? step + 1 : 0);
             }}
             className="action"
-          ></StepForwardOutlined>
-          <ReloadOutlined
+          ></Icon>
+
+          <MutedController
+            className="action action-reload"
+            style={{ color: "#fff", fontSize: "24px" }}
+          ></MutedController>
+          <Icon
+            component={RestartSvg}
             onClick={() => {
               handleRefresh();
             }}
             className="action action-reload"
             style={{ color: "#fff", fontSize: "24px" }}
-          ></ReloadOutlined>
+          ></Icon>
 
           <Setting
             onConfirm={onConfirmSetting}

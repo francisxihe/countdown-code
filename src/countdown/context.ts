@@ -20,4 +20,11 @@ export const ClockContext = createContext({
   setStep: ((state: number) => {}) as React.Dispatch<
     React.SetStateAction<number>
   >,
+
+  /** 计时器状态 */
+  muted: false,
+  /** 设置计时器状态 */
+  setMuted: ((state: boolean) => {}) as React.Dispatch<
+    React.SetStateAction<boolean>
+  >,
 });

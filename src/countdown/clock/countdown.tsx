@@ -1,10 +1,11 @@
 import { FlipItem } from "./flip";
 import "./countdown.scss";
-import { useCallback, useContext, useEffect, useMemo, useState } from "react";
+import { useContext, useEffect, useMemo, useRef, useState } from "react";
 import { getTimeArr } from "./utils";
 import { useCountdownTimer } from "./hooks";
 import { ClockContext } from "../context";
 import { ETickState } from "../enum";
+import { BackgroundMusic } from "./backgroundMusic";
 
 interface IProps {
   refresh: boolean;
@@ -26,12 +27,6 @@ export function Countdown(props: IProps) {
   const timeArr = useMemo(() => {
     return getTimeArr(curCountdown);
   }, [curCountdown]);
-
-  useEffect(() => {
-    if (tickState === ETickState["结束"]) {
-      setTickState(ETickState["暂停"]);
-    }
-  }, [setTickState, tickState]);
 
   /**
    * 重新开始
@@ -77,6 +72,7 @@ export function Countdown(props: IProps) {
       <div className="colon"></div>
       <FlipItem total={5} current={timeArr[4]}></FlipItem>
       <FlipItem total={9} current={timeArr[5]}></FlipItem>
+      <BackgroundMusic tickState={tickState}></BackgroundMusic>
     </div>
   );
 }

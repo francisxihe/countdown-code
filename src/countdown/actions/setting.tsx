@@ -1,8 +1,8 @@
-import { SettingOutlined } from "@ant-design/icons";
-
 import { Modal, Input, Form, Switch, Button } from "antd";
 import React, { useContext, useState } from "react";
 import { ClockContext } from "../context";
+import { ReactComponent as SettingtSvg } from "static/icon/setting.svg";
+import Icon from "@ant-design/icons/lib/components/Icon";
 
 export function Setting(
   props: {
@@ -31,11 +31,12 @@ export function Setting(
 
   return (
     <>
-      <SettingOutlined
+      <Icon
+        component={SettingtSvg}
         onClick={onClickSetting}
         className={props.className}
         style={props.style}
-      ></SettingOutlined>
+      ></Icon>
       <Modal
         open={settingVisible}
         title="设置"
